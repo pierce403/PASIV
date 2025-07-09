@@ -119,6 +119,11 @@ dmypy.json
 *.img
 *.vmdk
 
+# VM directories with large files
+/vm_images/
+/iso_files/
+/shared_memory/
+
 # Shared memory files
 /dev/shm/*
 
