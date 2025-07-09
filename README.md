@@ -1,6 +1,6 @@
-![PASIV Device](PASIV.webp)
+# PASIV: Peripheral Attack Simulation and Introspection Vehicle
 
-# PASIV: Programmable Automated Security Interrogation for Virtualization
+<img src="PASIV.webp" alt="PASIV Device" align="right" width="300">
 
 PASIV is a comprehensive test harness for emulating, executing, and analyzing Direct Memory Access (DMA) attacks within a controlled QEMU/KVM environment. This framework aims to provide researchers and security professionals with a powerful, scriptable, and repeatable platform for studying DMA vulnerabilities and defenses.
 
