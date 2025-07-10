@@ -113,6 +113,19 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+# PASIV Security Research - SENSITIVE DATA EXCLUSIONS
+# Memory dumps containing sensitive information
+memory_dumps/
+*.dump
+
+# JSON files containing extracted private keys and sensitive data
+*metamask_extraction*.json
+*private_key*.json
+*wallet_data*.json
+
+# Virtual environment
+venv/
+
 # Virtual machine files
 *.qcow2
 *.iso
