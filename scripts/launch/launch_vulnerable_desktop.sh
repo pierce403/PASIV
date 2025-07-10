@@ -42,11 +42,16 @@ fi
 
 # Check if we're doing initial installation (ISO exists) or booting existing VM
 BOOT_FROM_ISO=""
+KERNEL_APPEND=""
 if [ -f "$ISO_FILE" ]; then
     echo -e "${YELLOW}ISO file found - will boot from ISO for installation${NC}"
     BOOT_FROM_ISO="-cdrom $ISO_FILE -boot d"
+    # Don't use kernel arguments during ISO installation
+    KERNEL_APPEND=""
 else
     echo -e "${YELLOW}No ISO file - booting existing installation${NC}"
+    # Use vulnerable kernel arguments for installed system
+    KERNEL_APPEND="-append \"$KERNEL_ARGS\""
 fi
 
 # Create shared memory file for DMA attacks
@@ -84,12 +89,13 @@ echo ""
 KERNEL_ARGS="nokaslr nosmap nosmep mds=off l1tf=off spectre_v2=off spec_store_bypass_disable=off"
 
 echo -e "${GREEN}Starting QEMU...${NC}"
+echo "VM window will open shortly..."
 echo "Use Ctrl+Alt+G to release mouse cursor from QEMU window"
-echo "VNC available at: localhost:$VNC_PORT"
-echo "SSH will be available at: ssh -p $SSH_PORT username@localhost"
+echo "VNC also available at: localhost:$VNC_PORT"
+echo "SSH will be available at: ssh -p $SSH_PORT username@localhost (after installation)"
 echo ""
 
-# Launch QEMU with vulnerable configuration
+# Launch QEMU with vulnerable configuration (windowed mode)
 exec qemu-system-x86_64 \
     -enable-kvm \
     -m "$VM_MEMORY" \
@@ -101,20 +107,11 @@ exec qemu-system-x86_64 \
     -netdev user,id=net0,hostfwd=tcp::${SSH_PORT}-:22 \
     -device e1000,netdev=net0 \
     -vga std \
+    -display gtk,show-cursor=on \
     -vnc ":1" \
-    -monitor qmp:unix:"$QMP_SOCKET",server,nowait \
-    -append "$KERNEL_ARGS" \
-    -name "$VM_NAME" \
-    -daemonize
+    -qmp unix:"$QMP_SOCKET",server,nowait \
+    $KERNEL_APPEND \
+    -name "$VM_NAME"
 
-echo -e "${GREEN}VM launched successfully!${NC}"
-echo ""
-echo "Next steps:"
-echo "1. Connect via VNC to localhost:$VNC_PORT to complete Ubuntu installation"
-echo "2. During installation, configure a user account for SSH access"
-echo "3. After installation, SSH access will be available at port $SSH_PORT"
-echo "4. Install browsers (Firefox, Chrome) for memory attack testing"
-echo "5. Shared memory file $SHARED_MEMORY_FILE is ready for DMA analysis tools"
-echo ""
-echo "To stop the VM: pkill -f \"$VM_NAME\""
-echo "To monitor QMP: echo '{\"execute\":\"query-status\"}' | socat - unix:$QMP_SOCKET" 
+# Note: This script will exec into QEMU, so any commands after this won't run
+# The VM window will open and Ubuntu installation will begin automatically 
