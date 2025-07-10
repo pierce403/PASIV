@@ -122,6 +122,10 @@ memory_dumps/
 *metamask_extraction*.json
 *private_key*.json
 *wallet_data*.json
+*tamper_report*.json
+
+# Extension tampering backups and reports
+metamask_backups/
 
 # Virtual environment
 venv/
