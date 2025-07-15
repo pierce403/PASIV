@@ -39,7 +39,8 @@ sudo qemu-system-x86_64 \
     -netdev user,id=net0,hostfwd=tcp::2222-:22 \
     -device e1000,netdev=net0 \
     -vga qxl \
-    -spice port=5901,addr=127.0.0.1,disable-ticketing \
+    -spice port=5901,addr=127.0.0.1,disable-ticketing=on \
+    -device qemu-xhci \
     -device usb-tablet \
     -daemonize \
     -pidfile "./pasiv_vm.pid"
@@ -50,8 +51,12 @@ if [ $? -eq 0 ]; then
     echo "   - Name: $VM_NAME"  
     echo "   - Memory: $MEMORY_SIZE"
     echo "   - Memory file: $MEMORY_FILE"
-    echo "   - VNC: localhost:5901"
+    echo "   - SPICE GUI: localhost:5901"
     echo "   - SSH: localhost:2222"
+    echo ""
+    echo "🖥️  GUI Access:"
+    echo "   - Connect: remote-viewer spice://localhost:5901"
+    echo "   - Alternative: virt-viewer spice://localhost:5901"
     echo ""
     echo "🎯 DMA Attack Info:"
     echo "   - Direct memory access: $MEMORY_FILE"
