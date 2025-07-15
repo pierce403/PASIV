@@ -14,7 +14,7 @@ from datetime import datetime
 from typing import List, Dict, Tuple, Optional
 
 class FileDMAAttacker:
-    def __init__(self, memory_file: str = "/tmp/pasiv_vm_memory.img"):
+    def __init__(self, memory_file: str = "./pasiv_vm_memory.img"):
         self.memory_file = memory_file
         self.file_handle = None
         self.memory_map = None
@@ -221,7 +221,7 @@ def main():
     if len(sys.argv) > 1:
         memory_file = sys.argv[1]
     else:
-        memory_file = "/tmp/pasiv_vm_memory.img"
+        memory_file = "./pasiv_vm_memory.img"
     
     attacker = FileDMAAttacker(memory_file)
     

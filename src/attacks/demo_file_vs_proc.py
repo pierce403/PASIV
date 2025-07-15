@@ -49,7 +49,7 @@ def demo_file_approach():
     print("")
     print("📋 Example workflow:")
     print("   1. Launch VM with: -object memory-backend-file")
-    print("   2. Open /tmp/pasiv_vm_memory.img directly")
+    print("   2. Open ./pasiv_vm_memory.img directly")
     print("   3. Memory map the entire VM RAM")
     print("   4. Direct read/write to VM memory")
     print("")
@@ -61,7 +61,7 @@ def show_file_backed_setup():
     print("QEMU Command Example:")
     print("""
 sudo qemu-system-x86_64 \\
-    -object memory-backend-file,id=pc.ram,size=4G,mem-path=/tmp/pasiv_vm_memory.img,share=on \\
+    -object memory-backend-file,id=pc.ram,size=4G,mem-path=./pasiv_vm_memory.img,share=on \\
     -machine pc-q35-9.2,memory-backend=pc.ram \\
     [... other VM options ...]
 """)
@@ -77,7 +77,7 @@ def demonstrate_access_patterns():
     print("🔬 Memory Access Pattern Comparison")
     print("=" * 50)
     
-    memory_file = "/tmp/pasiv_vm_memory.img"
+    memory_file = "./pasiv_vm_memory.img"
     
     print("File-Backed Access:")
     if os.path.exists(memory_file):

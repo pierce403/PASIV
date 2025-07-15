@@ -6,7 +6,7 @@
 
 VM_NAME="pasiv-file-backed"
 MEMORY_SIZE="4G"
-MEMORY_FILE="/tmp/pasiv_vm_memory.img"
+MEMORY_FILE="./pasiv_vm_memory.img"
 DISK_IMAGE="/var/lib/libvirt/images/pasiv/ubuntu-desktop-vulnerable.qcow2"
 
 echo "🚀 PASIV File-Backed Memory VM Launcher"
@@ -42,7 +42,7 @@ sudo qemu-system-x86_64 \
     -spice port=5901,addr=127.0.0.1,disable-ticketing \
     -device usb-tablet \
     -daemonize \
-    -pidfile "/tmp/pasiv_vm.pid"
+    -pidfile "./pasiv_vm.pid"
 
 if [ $? -eq 0 ]; then
     echo "✅ VM started successfully!"

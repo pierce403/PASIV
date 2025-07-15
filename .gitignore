@@ -144,6 +144,12 @@ venv/
 # Shared memory files
 /dev/shm/*
 
+# PASIV VM Memory Files - NEVER COMMIT THESE
+pasiv_vm_memory.img
+pasiv_vm.pid
+*.memory
+*.mem
+
 # Build artifacts
 /build/
 /dist/ 
