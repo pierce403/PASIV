@@ -10,7 +10,7 @@ VM_NAME="pasiv-dma-vm"
 VM_MEMORY="4G"
 VM_CORES="2"
 DISK_IMAGE="/var/lib/libvirt/images/pasiv/ubuntu-desktop-vulnerable.qcow2"
-MEMORY_FILE="/tmp/pasiv_vm_memory.raw"  # Use /tmp for easier access
+MEMORY_FILE="$(pwd)/pasiv_vm_memory.raw"  # Use local project directory
 SSH_PORT="2222"
 VNC_PORT="5901"
 
@@ -34,6 +34,9 @@ echo -e "${GREEN}Creating memory file: $MEMORY_FILE${NC}"
 rm -f "$MEMORY_FILE"
 fallocate -l 4G "$MEMORY_FILE"
 chmod 666 "$MEMORY_FILE"
+
+# Maintain compatibility symlink expected by tools
+ln -sfn "$MEMORY_FILE" "$(pwd)/pasiv_vm_memory.img"
 
 echo -e "${GREEN}VM Configuration:${NC}"
 echo "  Memory: $VM_MEMORY"
