@@ -2,6 +2,11 @@
 
 > Educational/Research use only. Perform this demo only on systems and accounts you control, with negligible funds you can afford to lose. This attack operates below the OS and browser security layers.
 
+### Related DEF CON 33 Talk
+- Session link: [Hacker Tracker event page](https://hackertracker.app/event/?conf=DEFCON33&event=61038)
+- Presenters: Joe and Grace (collaboration support from the PASIV team)
+- Quick summary: Live demonstration of DMA-enabled memory tampering to hijack ERC‑20 token transfers from within a running VM. The session walks through configuring a vulnerable target, observing ASCII‑encoded Web3 transaction data in memory (e.g., `0xa9059cbb…`), and performing real‑time recipient address substitution before broadcast, along with discussion of mitigations and research ethics.
+
 ### Overview
 This demo shows how to:
 - Launch an Ubuntu VM with file-backed (DMA-accessible) memory
